@@ -28,6 +28,20 @@ SMODS.Atlas {
 	path = "decks.png"
 }
 
+SMODS.Atlas({
+	key = "Planets",
+	path = "planet.png",
+	px = 71,
+	py = 95,
+})
+
+SMODS.Atlas({
+	key = "poker_hands",
+	path = "hands.png",
+	px = 53,
+	py = 13,
+})
+
 ---- JOKERS ----
 local jokers = {
 	pairseats = {
@@ -133,7 +147,7 @@ SMODS.Back {
 		unlock = {
 			"Win a run on {C:gold}Gold{} Stake",
 			"without ever having more",
-			"than {C:attention}4{} Jokers"
+			"than {C:attention}1{} Jokers"
 		}
 	},
 	
@@ -183,6 +197,78 @@ SMODS.Back {
 	end	
 }
 
+---- HAND TYPES ----
+SMODS.PokerHand({
+	key = "luckyhh",
+	loc_txt = {
+		name = "Lucky Hand",
+		
+		description = {
+			'Five Lucky cards'
+		}
+	},
+	
+	visible = false,
+	chips = 50,
+	mult = 5,
+	l_chips = 30,
+	l_mult = 2,
+	example = {
+		{ "S_9", true, enhancement = "m_lucky" },
+		{ "H_2", true, enhancement = "m_lucky" },
+		{ "C_4", true, enhancement = "m_lucky" },
+		{ "D_5", true, enhancement = "m_lucky" },
+		{ "H_6", true, enhancement = "m_lucky" },
+	},
+	atlas = "poker_hands",
+	pos = { x = 0, y = 0 },
+	evaluate = function(parts, hand)
+		local luckyT = {}
+		for i, card in ipairs(hand) do
+			if card.config.center_key == "m_lucky" then
+				luckyT[#luckyT + 1] = card
+			end
+		end
+		return #luckyT >= 5 and { luckyT } or {}
+	end,
+})
+
+---- PLANETS ----
+SMODS.Consumable({
+	key = "quaoar",
+	set = "Planet",
+	atlas = "Planets",
+	pos = {x = 0, y = 0},
+	
+	loc_txt = {
+		name = "Quaoar",
+		
+		text = {
+			"{S:0.8}({S:0.8,V:1}lvl.#2#{S:0.8}){} Level up",
+			"{C:attention}#1#",
+			"{C:mult}+#3#{} Mult and",
+			"{C:chips}+#4#{} chips",
+		}
+	},
+	
+	config = {hand_type = "luch_luckyhh", softlock = true},
+	loc_vars = function(self, info_queue, center)
+		return {
+			vars = {
+				"Lucky Hand",
+				G.GAME.hands["luch_luckyhh"].level,
+				G.GAME.hands["luch_luckyhh"].l_mult,
+				G.GAME.hands["luch_luckyhh"].l_chips,
+				colours = {
+					(
+						to_big(G.GAME.hands["luch_luckyhh"].level) == to_big(1) and G.C.UI.TEXT_DARK
+						or G.C.HAND_LEVELS[to_number(math.min(7, G.GAME.hands["luch_luckyhh"].level))]
+					),
+				},
+			},
+		}
+	end
+})
 
 ---- FUNCTIONS 2----
 local function create_joker(joker)
