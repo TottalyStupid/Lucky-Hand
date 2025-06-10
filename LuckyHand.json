@@ -1,0 +1,14 @@
+{
+	"id": "LuckyHand",
+	"name": "LuckyHand",
+	"display_name": "Lucky Hand",
+	"author": ["Somperson"],
+	"description": "Maybe balanced Balatro mod (1 in 100 chance).",
+	"prefix": "luch",
+	"main_file": "LuckyHand.lua",
+	"priority": 0,
+	"badge_colour": "",
+	"badge_text_colour": "",
+	"version": "0.0.1b",
+	"dependencies": [],
+}
