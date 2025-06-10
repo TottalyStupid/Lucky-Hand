@@ -6,4 +6,5 @@ Maybe balanced Balatro mod (1 in 100 chance).
 This mod currently adds:
 
 ![image](https://github.com/user-attachments/assets/8d317e92-0e9a-4580-b1c8-1cb24116388b)
+
 <sub>wow so much new stuff<sub>
