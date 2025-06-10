@@ -43,7 +43,7 @@ local jokers = {
 			unlock = {
 				"Win a run with",
 				"your final hand being",
-				"a {E:1, C:attention}Pair{}",
+				"a {C:attention}Pair{}",
 			}
 		},
 		
@@ -128,6 +128,12 @@ SMODS.Back {
 			'Start with {C:attention}3{} Eternal {C:legendary}Perkeos{}',
 			'{C:red}-1{} Consumable slots,',
 			'{C:red}-2{} Joker slots'
+		},
+		
+		unlock = {
+			"Win a run on {C:gold}Gold{} Stake",
+			"without ever having more",
+			"than {C:attention}4{} Jokers"
 		}
 	},
 	
@@ -166,7 +172,15 @@ SMODS.Back {
 				end
 			end,
 		}))
-	end
+	end,
+	
+	check_for_unlock = function(self, args)
+		if args.type == "win_deck" then
+			if get_deck_win_stake() >= 8 and G.GAME.max_jokers <= 1 then
+				unlock_card(self)
+			end
+		end
+	end	
 }
 
 
