@@ -7,4 +7,4 @@ This mod currently adds:
 
 ![image](https://github.com/user-attachments/assets/8d317e92-0e9a-4580-b1c8-1cb24116388b)
 
-<sup>    wow so much new stuff<sup>
+<sup>wow so much new stuff<sup>
